@@ -13,7 +13,10 @@ Getting started
    ```
 
 2. Create a Google APIs project at https://code.google.com/apis/console/
-
+   - You do not have to enable any services from the Services tab.
+   - Make sure to go to **API Access** tab and **Create an OAuth 2.0 client ID**.
+   - Choose **Web application** for *Application type*
+   
 3. Configure Opauth-Google strategy.
 
 
@@ -27,15 +30,19 @@ Required parameters:
 ```php
 <?php
 'Google' => array(
-	'app_id' => 'YOUR APP ID',
-	'app_secret' => 'YOUR APP SECRET'
+	'client_id' => 'YOUR CLIENT ID',
+	'client_secret' => 'YOUR CLIENT SECRET'
 )
 ```
 
+References
+----------
+- [Using OAuth 2.0 to Access Google APIs](https://developers.google.com/accounts/docs/OAuth2)
+- [Using OAuth 2.0 for Web Server Applications](https://developers.google.com/accounts/docs/OAuth2WebServer)
 
 License
 ---------
-Opauth-Facebook is MIT Licensed  
+Opauth-Google is MIT Licensed  
 Copyright © 2012 U-Zyn Chua (http://uzyn.com)
 
 [1]: https://github.com/uzyn/opauth
