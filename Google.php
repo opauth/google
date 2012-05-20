@@ -27,7 +27,7 @@ class Google extends OpauthStrategy{
 	/**
 	 * Optional config keys, without predefining any default values.
 	 */
-	public $optionals = array('client_id', 'redirect_uri', 'scope', 'state', 'access_type', 'approval_prompt');
+	public $optionals = array('redirect_uri', 'scope', 'state', 'access_type', 'approval_prompt');
 	
 	/**
 	 * Optional config keys with respective default values, listed as associative arrays
@@ -38,19 +38,18 @@ class Google extends OpauthStrategy{
 		'scope' => 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email'
 	);
 	
-
 	/**
 	 * Auth request
 	 */
 	public function request(){
 		$url = 'https://accounts.google.com/o/oauth2/auth';
 		$params = array(
-			'client_id' => $this->strategy['app_id'],
+			'client_id' => $this->strategy['client_id'],
 			'redirect_uri' => $this->strategy['redirect_uri'],
 			'response_type' => 'code',
 			'scope' => $this->strategy['scope']
 		);
-		
+
 		foreach ($this->optionals as $key){
 			if (!empty($this->strategy[$key])) $params[$key] = $this->strategy[$key];
 		}
@@ -61,16 +60,23 @@ class Google extends OpauthStrategy{
 	/**
 	 * Internal callback, after Facebook's OAuth
 	 */
-	public function int_callback(){
+	public function oauth2callback(){
 		if (array_key_exists('code', $_GET) && !empty($_GET['code'])){
-			$url = 'https://graph.facebook.com/oauth/access_token';
+			$code = $_GET['code'];
+			$url = 'https://accounts.google.com/o/oauth2/token';
 			$params = array(
-				'client_id' =>$this->strategy['app_id'],
-				'client_secret' => $this->strategy['app_secret'],
-				'redirect_uri'=> $this->strategy['redirect_uri'],
-				'code' => trim($_GET['code'])
+				'code' => $code,
+				'client_id' => $this->strategy['client_id'],
+				'client_secret' => $this->strategy['client_secret'],
+				'redirect_uri' => $this->strategy['redirect_uri'],
+				'response_type' => 'code',
+				'grant_type' => 'authorization_code'
 			);
-			$response = $this->httpRequest($url.'?'.http_build_query($params), null, $headers);
+			$response = $this->serverPost($url, $params, null, $headers);
+			
+			print_r($response);
+			print_r($headers);
+			exit();
 			
 			parse_str($response, $results);
 

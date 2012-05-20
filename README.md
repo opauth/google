@@ -1,8 +1,6 @@
 Opauth-Google
 =============
-[Opauth][1] strategy for Google authentication.
-
-Implemented based on https://developers.google.com/accounts/docs/OAuth2 using OAuth 2.0.
+[Opauth][1] strategy for Google authentication, implemented based on [Google's official APIs client library for PHP][2].
 
 Opauth is a multi-provider authentication framework for PHP.
 
@@ -50,4 +48,7 @@ License
 Opauth-Google is MIT Licensed  
 Copyright © 2012 U-Zyn Chua (http://uzyn.com)
 
+Google API PHP client is Apache 2 licensed.
+
 [1]: https://github.com/uzyn/opauth
+[2]: http://code.google.com/p/google-api-php-client/
