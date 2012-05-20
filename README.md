@@ -2,7 +2,9 @@ Opauth-Google
 =============
 [Opauth][1] strategy for Google authentication.
 
-Implemented based on https://developers.google.com/accounts/docs/OAuth2 using OAuth 2.0
+Implemented based on https://developers.google.com/accounts/docs/OAuth2 using OAuth 2.0.
+
+Opauth is a multi-provider authentication framework for PHP.
 
 Getting started
 ----------------
@@ -16,6 +18,8 @@ Getting started
    - You do not have to enable any services from the Services tab.
    - Make sure to go to **API Access** tab and **Create an OAuth 2.0 client ID**.
    - Choose **Web application** for *Application type*
+   - Make sure that redirect URI is set to actual OAuth 2.0 callback URL, usually http://path_to_opauth/google/oauth2callback
+
    
 3. Configure Opauth-Google strategy.
 
@@ -38,6 +42,7 @@ Required parameters:
 References
 ----------
 - [Using OAuth 2.0 to Access Google APIs](https://developers.google.com/accounts/docs/OAuth2)
+- [Using OAuth 2.0 for Login](https://developers.google.com/accounts/docs/OAuth2Login#scopeparameter)
 - [Using OAuth 2.0 for Web Server Applications](https://developers.google.com/accounts/docs/OAuth2WebServer)
 
 License
