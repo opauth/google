@@ -18,10 +18,12 @@ Getting started
    - You do not have to enable any services from the Services tab.
    - Make sure to go to **API Access** tab and **Create an OAuth 2.0 client ID**.
    - Choose **Web application** for *Application type*
-   - Make sure that redirect URI is set to actual OAuth 2.0 callback URL, usually http://path_to_opauth/google/oauth2callback
+   - Make sure that redirect URI is set to actual OAuth 2.0 callback URL, usually `http://path_to_opauth/google/oauth2callback`
 
    
 3. Configure Opauth-Google strategy.
+
+4. Direct user to `http://path_to_opauth/google` to authenticate
 
 
 Strategy configuration
