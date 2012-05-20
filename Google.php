@@ -58,7 +58,7 @@ class Google extends OpauthStrategy{
 	}
 	
 	/**
-	 * Internal callback, after Facebook's OAuth
+	 * Internal callback, after OAuth
 	 */
 	public function oauth2callback(){
 		if (array_key_exists('code', $_GET) && !empty($_GET['code'])){
@@ -69,56 +69,45 @@ class Google extends OpauthStrategy{
 				'client_id' => $this->strategy['client_id'],
 				'client_secret' => $this->strategy['client_secret'],
 				'redirect_uri' => $this->strategy['redirect_uri'],
-				'response_type' => 'code',
 				'grant_type' => 'authorization_code'
 			);
 			$response = $this->serverPost($url, $params, null, $headers);
 			
-			print_r($response);
-			print_r($headers);
-			exit();
+			$results = json_decode($response);
 			
-			parse_str($response, $results);
-
-			if (!empty($results) && !empty($results['access_token'])){
-				$me = $this->me($results['access_token']);
+			if (!empty($results) && !empty($results->access_token)){
+				$userinfo = $this->userinfo($results->access_token);
 				
 				$this->auth = array(
-					'provider' => 'Facebook',
-					'uid' => $me->id,
+					'provider' => 'Google',
+					'uid' => $userinfo->id,
 					'info' => array(
-						'name' => $me->name,
-						'image' => 'https://graph.facebook.com/'.$me->id.'/picture?type=square'
+						'name' => $userinfo->name,
+						'email' => $userinfo->email,
+						'first_name' => $userinfo->given_name,
+						'last_name' => $userinfo->family_name,
+						'image' => $userinfo->picture
 					),
 					'credentials' => array(
-						'token' => $results['access_token'],
-						'expires' => date('c', time() + $results['expires'])
+						'token' => $results->access_token,
+						'expires' => date('c', time() + $results->expires_in)
 					),
-					'raw' => $me
+					'raw' => $userinfo
 				);
 				
-				if (!empty($me->email)) $this->auth['info']['email'] = $me->email;
-				if (!empty($me->username)) $this->auth['info']['nickname'] = $me->username;
-				if (!empty($me->first_name)) $this->auth['info']['first_name'] = $me->first_name;
-				if (!empty($me->last_name)) $this->auth['info']['last_name'] = $me->last_name;
-				if (!empty($me->location)) $this->auth['info']['location'] = $me->location->name;
-				if (!empty($me->link)) $this->auth['info']['urls']['facebook'] = $me->link;
-				if (!empty($me->website)) $this->auth['info']['urls']['website'] = $me->website;
-				
-				/**
-				 * Missing optional info values
-				 * - description
-				 * - phone: not accessible via Facebook Graph API
-				 */
+				if (!empty($userinfo->link)) $this->auth['info']['urls']['google'] = $userinfo->link;
 				
 				$this->callback();
 			}
 			else{
 				$error = array(
-					'provider' => 'Facebook',
+					'provider' => 'Google',
 					'code' => 'access_token_error',
 					'message' => 'Failed when attempting to obtain access token',
-					'raw' => $headers
+					'raw' => array(
+						'response' => $response,
+						'headers' => $headers
+					)
 				);
 
 				$this->errorCallback($error);
@@ -126,9 +115,8 @@ class Google extends OpauthStrategy{
 		}
 		else{
 			$error = array(
-				'provider' => 'Facebook',
-				'code' => $_GET['error'],
-				'message' => $_GET['error_description'],
+				'provider' => 'Google',
+				'code' => 'oauth2callback_error',
 				'raw' => $_GET
 			);
 			
@@ -137,15 +125,28 @@ class Google extends OpauthStrategy{
 	}
 	
 	/**
-	 * Queries Facebook Graph API for user info
+	 * Queries Google API for user info
 	 *
 	 * @param string $access_token 
 	 * @return array Parsed JSON results
 	 */
-	private function me($access_token){
-		$me = $this->httpRequest('https://graph.facebook.com/me?access_token='.$access_token);
-		if (!empty($me)){
-			return json_decode($me);
+	private function userinfo($access_token){
+		$userinfo = $this->serverGet('https://www.googleapis.com/oauth2/v1/userinfo', array('access_token' => $access_token), null, $headers);
+		if (!empty($userinfo)){
+			return json_decode($userinfo);
+		}
+		else{
+			$error = array(
+				'provider' => 'Google',
+				'code' => 'userinfo_error',
+				'message' => 'Failed when attempting to query for user information',
+				'raw' => array(
+					'response' => $userinfo,
+					'headers' => $headers
+				)
+			);
+
+			$this->errorCallback($error);
 		}
 	}
 }
