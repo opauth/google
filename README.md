@@ -29,8 +29,6 @@ Strategy configuration
 
 Required parameters:
 
-(TO BE UPDATED)
-
 ```php
 <?php
 'Google' => array(
@@ -38,6 +36,10 @@ Required parameters:
 	'client_secret' => 'YOUR CLIENT SECRET'
 )
 ```
+
+Optional parameters:
+`scope`, `state`, `access_type`, `approval_prompt`
+
 
 References
 ----------
