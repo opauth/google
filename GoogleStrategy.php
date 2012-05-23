@@ -17,7 +17,7 @@
  * 
  * @package			Opauth.Google
  */
-class Google extends OpauthStrategy{
+class GoogleStrategy extends OpauthStrategy{
 	
 	/**
 	 * Compulsory config keys, listed as unassociative arrays
