@@ -54,7 +54,7 @@ class GoogleStrategy extends OpauthStrategy{
 			if (!empty($this->strategy[$key])) $params[$key] = $this->strategy[$key];
 		}
 		
-		$this->redirect($url.'?'.http_build_query($params));
+		$this->clientGet($url, $params);
 	}
 	
 	/**
