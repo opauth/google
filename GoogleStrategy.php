@@ -79,14 +79,8 @@ class GoogleStrategy extends OpauthStrategy{
 				$userinfo = $this->userinfo($results->access_token);
 				
 				$this->auth = array(
-					'uid' => $userinfo->id,
-					'info' => array(
-						'name' => $userinfo->name,
-						'email' => $userinfo->email,
-						'first_name' => $userinfo->given_name,
-						'last_name' => $userinfo->family_name,
-						'image' => $userinfo->picture
-					),
+					'uid' => $userinfo['id'],
+					'info' => array(),
 					'credentials' => array(
 						'token' => $results->access_token,
 						'expires' => date('c', time() + $results->expires_in)
@@ -94,7 +88,11 @@ class GoogleStrategy extends OpauthStrategy{
 					'raw' => $userinfo
 				);
 				
-				if (!empty($userinfo->link)) $this->auth['info']['urls']['google'] = $userinfo->link;
+				$this->mapProfile($userinfo, 'name', 'info.name');
+				$this->mapProfile($userinfo, 'email', 'info.email');
+				$this->mapProfile($userinfo, 'given_name', 'info.first_name');
+				$this->mapProfile($userinfo, 'family_name', 'info.last_name');
+				$this->mapProfile($userinfo, 'picture', 'info.image');
 				
 				$this->callback();
 			}
@@ -130,7 +128,7 @@ class GoogleStrategy extends OpauthStrategy{
 	private function userinfo($access_token){
 		$userinfo = $this->serverGet('https://www.googleapis.com/oauth2/v1/userinfo', array('access_token' => $access_token), null, $headers);
 		if (!empty($userinfo)){
-			return json_decode($userinfo);
+			return $this->recursiveGetObjectVars(json_decode($userinfo));
 		}
 		else{
 			$error = array(
