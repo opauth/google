@@ -79,7 +79,6 @@ class GoogleStrategy extends OpauthStrategy{
 				$userinfo = $this->userinfo($results->access_token);
 				
 				$this->auth = array(
-					'provider' => 'Google',
 					'uid' => $userinfo->id,
 					'info' => array(
 						'name' => $userinfo->name,
@@ -101,7 +100,6 @@ class GoogleStrategy extends OpauthStrategy{
 			}
 			else{
 				$error = array(
-					'provider' => 'Google',
 					'code' => 'access_token_error',
 					'message' => 'Failed when attempting to obtain access token',
 					'raw' => array(
@@ -115,7 +113,6 @@ class GoogleStrategy extends OpauthStrategy{
 		}
 		else{
 			$error = array(
-				'provider' => 'Google',
 				'code' => 'oauth2callback_error',
 				'raw' => $_GET
 			);
@@ -137,7 +134,6 @@ class GoogleStrategy extends OpauthStrategy{
 		}
 		else{
 			$error = array(
-				'provider' => 'Google',
 				'code' => 'userinfo_error',
 				'message' => 'Failed when attempting to query for user information',
 				'raw' => array(
