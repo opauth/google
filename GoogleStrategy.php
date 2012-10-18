@@ -87,6 +87,11 @@ class GoogleStrategy extends OpauthStrategy{
 					),
 					'raw' => $userinfo
 				);
+
+				if (!empty($results->refresh_token))
+				{
+					$this->auth['credentials']['refresh_token'] = $results->refresh_token;
+				}
 				
 				$this->mapProfile($userinfo, 'name', 'info.name');
 				$this->mapProfile($userinfo, 'email', 'info.email');
