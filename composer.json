@@ -20,7 +20,7 @@
 		"opauth/opauth": "dev-wip/1.0"
 	},
 	"autoload": {
-		"psr-0": { "Opauth\\Strategy\\Twitter": "" }
+		"psr-0": { "Opauth\\Strategy\\Google": "" }
 	},
-	"target-dir": "Opauth/Strategy/Twitter"
+	"target-dir": "Opauth/Strategy/Google"
 }
