@@ -15,9 +15,6 @@
 namespace Opauth\Strategy\Google;
 
 use Opauth\AbstractStrategy;
-use Opauth\HttpClient;
-use Opauth\Request;
-use Opauth\Response;
 
 /**
  * Google strategy for Opauth
@@ -68,7 +65,7 @@ class Strategy extends AbstractStrategy {
 		);
 		$params = $this->addParams($this->optionals, $params);
 
-		HttpClient::redirect($url, $params);
+		$this->http->redirect($url, $params);
 	}
 
 	/**
@@ -91,7 +88,7 @@ class Strategy extends AbstractStrategy {
 		}
 
 		$params = array('access_token' => $results->access_token);
-		$userinfo = HttpClient::get('https://www.googleapis.com/oauth2/v1/userinfo', $params);
+		$userinfo = $this->http->get('https://www.googleapis.com/oauth2/v1/userinfo', $params);
 
 		if (empty($userinfo)) {
 			$error = array(
@@ -123,7 +120,7 @@ class Strategy extends AbstractStrategy {
 			'redirect_uri' => $this->callbackUrl(),
 			'grant_type' => 'authorization_code'
 		);
-		return HttpClient::post('https://accounts.google.com/o/oauth2/token', $params);
+		return $this->http->post('https://accounts.google.com/o/oauth2/token', $params);
 	}
 
 }
