@@ -27,7 +27,7 @@ class GoogleStrategy extends OpauthStrategy{
 	/**
 	 * Optional config keys, without predefining any default values.
 	 */
-	public $optionals = array('redirect_uri', 'scope', 'state', 'access_type', 'approval_prompt');
+	public $optionals = array('redirect_uri', 'scope', 'state', 'access_type', 'approval_prompt', 'include_granted_scopes', 'prompt');
 	
 	/**
 	 * Optional config keys with respective default values, listed as associative arrays
