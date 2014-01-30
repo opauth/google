@@ -34,6 +34,7 @@ class GoogleStrategy extends OpauthStrategy{
 	 * eg. array('scope' => 'email');
 	 */
 	public $defaults = array(
+		'hd' => null,
 		'redirect_uri' => '{complete_url_to_strategy}oauth2callback',
 		'scope' => 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email'
 	);
@@ -45,6 +46,7 @@ class GoogleStrategy extends OpauthStrategy{
 		$url = 'https://accounts.google.com/o/oauth2/auth';
 		$params = array(
 			'client_id' => $this->strategy['client_id'],
+			'hd' => $this->strategy['hd'],
 			'redirect_uri' => $this->strategy['redirect_uri'],
 			'response_type' => 'code',
 			'scope' => $this->strategy['scope']
