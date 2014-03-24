@@ -10,8 +10,8 @@ Getting started
 ----------------
 1. Install Opauth-Google:
    ```bash
-   cd path_to_opauth/Strategy
-   git clone git://github.com/uzyn/opauth-google.git Google
+   cd path/to/app/root
+   composer require opauth/google:dev-wip/1.0
    ```
 
 2. Create a Google APIs project at https://code.google.com/apis/console/
@@ -20,7 +20,7 @@ Getting started
    - Choose **Web application** for *Application type*
    - Make sure that redirect URI is set to actual OAuth 2.0 callback URL, usually `http://path_to_opauth/google/oauth2callback`
 
-   
+
 3. Configure Opauth-Google strategy.
 
 4. Direct user to `http://path_to_opauth/google` to authenticate
@@ -51,7 +51,7 @@ References
 
 License
 ---------
-Opauth-Google is MIT Licensed  
+Opauth-Google is MIT Licensed
 Copyright © 2012 U-Zyn Chua (http://uzyn.com)
 
 [1]: https://github.com/uzyn/opauth

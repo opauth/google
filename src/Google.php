@@ -12,9 +12,9 @@
  * @license      MIT License
  */
 
-namespace Opauth\Strategy\Google;
+namespace Opauth\Google\Strategy;
 
-use Opauth\AbstractStrategy;
+use Opauth\Opauth\AbstractStrategy;
 
 /**
  * Google strategy for Opauth
@@ -22,7 +22,7 @@ use Opauth\AbstractStrategy;
  *
  * @package			Opauth.Google
  */
-class Strategy extends AbstractStrategy {
+class Google extends AbstractStrategy {
 
 	/**
 	 * Compulsory config keys, listed as unassociative arrays

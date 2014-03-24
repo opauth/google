@@ -20,7 +20,6 @@
 		"opauth/opauth": "dev-wip/1.0"
 	},
 	"autoload": {
-		"psr-0": { "Opauth\\Strategy\\Google": "" }
-	},
-	"target-dir": "Opauth/Strategy/Google"
+		"psr-4": { "Opauth\\Google\\Strategy\\": "src" }
+	}
 }
