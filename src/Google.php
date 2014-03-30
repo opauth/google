@@ -76,29 +76,21 @@ class Google extends AbstractStrategy
     public function callback()
     {
         if (empty($_GET['code'])) {
-            return $this->response($_GET, array('code' => 'oauth2callback_error'));
+            return $this->error('Error on OAuth2 callback.', 'oauth2callback_error', $_GET);
         }
 
         $response = $this->accessToken($_GET['code']);
         $results = json_decode($response);
 
         if (empty($results->access_token)) {
-            $error = array(
-                'code' => 'access_token_error',
-                'message' => 'Failed when attempting to obtain access token',
-            );
-            return $this->response($response, $error);
+            return $this->error('Failed when attempting to obtain access token.', 'access_token_error', $response);
         }
 
         $params = array('access_token' => $results->access_token);
         $userinfo = $this->http->get('https://www.googleapis.com/oauth2/v1/userinfo', $params);
 
         if (empty($userinfo)) {
-            $error = array(
-                'code' => 'userinfo_error',
-                'message' => 'Failed when attempting to query for user information',
-            );
-            return $this->response($userinfo, $error);
+            return $this->error('Failed when attempting to query for user information.', 'userinfo_error');
         }
 
         $userinfo = $this->recursiveGetObjectVars(json_decode($userinfo));
