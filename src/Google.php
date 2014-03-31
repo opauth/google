@@ -118,5 +118,4 @@ class Google extends AbstractStrategy
         );
         return $this->http->post('https://accounts.google.com/o/oauth2/token', $params);
     }
-
 }
