@@ -11,7 +11,7 @@ Getting started
 1. Install Opauth-Google:
    ```bash
    cd path_to_opauth/Strategy
-   git clone git://github.com/uzyn/opauth-google.git Google
+   git clone git://github.com/opauth/google.git Google
    ```
 
 2. Create a Google APIs project at https://code.google.com/apis/console/
