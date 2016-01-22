@@ -4,19 +4,7 @@
  * based on https://developers.google.com/accounts/docs/OAuth2
  * 
  * More information on Opauth: http://opauth.org
- * 
- * @copyright    Copyright © 2012 U-Zyn Chua (http://uzyn.com)
- * @link         http://opauth.org
- * @package      Opauth.GoogleStrategy
- * @license      MIT License
- */
-
-/**
- * Google strategy for Opauth
- * based on https://developers.google.com/accounts/docs/OAuth2
- * 
- * @package			Opauth.Google
- */
+ 
 class GoogleStrategy extends OpauthStrategy{
 	
 	/**
