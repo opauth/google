@@ -4,21 +4,7 @@ Opauth-Google
 
 Implemented based on https://developers.google.com/accounts/docs/OAuth2 using OAuth 2.0.
 
-Opauth is a multi-provider authentication framework for PHP.
-
-Getting started
-----------------
-1. Install Opauth-Google:
-   ```bash
-   cd path_to_opauth/Strategy
-   git clone git://github.com/uzyn/opauth-google.git Google
-   ```
-
-2. Create a Google APIs project at https://code.google.com/apis/console/
-   - You do not have to enable any services from the Services tab.
-   - Make sure to go to **API Access** tab and **Create an OAuth 2.0 client ID**.
-   - Choose **Web application** for *Application type*
-   - Make sure that redirect URI is set to actual OAuth 2.0 callback URL, usually `http://path_to_opauth/google/oauth2callback`
+http://path_to_opauth/google/oauth2callback`
 
    
 3. Configure Opauth-Google strategy.
