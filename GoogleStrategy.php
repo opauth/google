@@ -61,6 +61,21 @@ class GoogleStrategy extends OpauthStrategy{
 	 * Internal callback, after OAuth
 	 */
 	public function oauth2callback(){
+		if (isset($this->strategy['state'])){
+                        if (!isset($_GET['state']) || $this->strategy['state'] != $_GET['state']){
+                                $error = array(
+                                        'code' => 'state_error',
+                                        'message' => 'State does not match',
+                                        'raw' => array(
+                                                'response' => filter_input(INPUT_GET, 'state'),
+                                                'expected' => $this->strategy['state']
+                                        )
+                                );
+
+                                $this->errorCallback($error);
+                                return;
+                        }
+                }
 		if (array_key_exists('code', $_GET) && !empty($_GET['code'])){
 			$code = $_GET['code'];
 			$url = 'https://accounts.google.com/o/oauth2/token';
