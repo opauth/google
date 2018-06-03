@@ -13,6 +13,10 @@ Getting started
    cd path_to_opauth/Strategy
    git clone git://github.com/opauth/google.git Google
    ```
+   or
+   ```
+   composer require opauth/google
+   ```
 
 2. Create a Google APIs project at https://code.google.com/apis/console/
    - You do not have to enable any services from the Services tab.
