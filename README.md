@@ -1,3 +1,4 @@
+##google
 Opauth-Google
 =============
 [Opauth][1] strategy for Google authentication.
